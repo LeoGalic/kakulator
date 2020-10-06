@@ -1,79 +1,149 @@
-<html> 
-   <head> 
-<style> 
-         table, td, th {  
-  border: 1px solid #ddd;
-  text-align: left;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <style>
+      * {
+  padding: 0;
+  margin: 0;
 }
 
-table {
-  border-collapse: collapse;
-  width: 6%;
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #434672;
+  font-family: sans-serif;
 }
 
-th, td {
-  padding: 15px;
+
+.calculator {
+  width: 300px;
+  padding-bottom: 15px;
+  border-radius: 7px;
+  background-color: #000;
+  box-shadow: 5px 8px 8px -2px rgba(0, 0, 0, 0.61);
 }
 
-</style> 
-   </head> 
+.display {
+  width: 100%;
+  height: 80px;
+  border: none;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 2rem;
+  background-color: #799fc4;
+  color: #000;
+  text-align: right;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+  background-color: #222;
+  color: #fff;
+  margin: 10px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+
+.operator {
+  background-color: #9fc6dd;
+  color: #000;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+
+
+    <input type="text" class="display" disabled>
+
+    <div class="keys">
    
-   <body> 
+      <div class="row">
+        <button value="7">7</button>
+        <button value="8">8</button>
+        <button value="9">9</button>
+        <button value="+" class="operator">+</button>
+      </div>
+      <div class="row">
+        <button value="4">4</button>
+        <button value="5">5</button>
+        <button value="6">6</button>
+        <button value="-" class="operator">-</button>
+      </div>
+      <div class="row">
+        <button value="1">1</button>
+        <button value="2">2</button>
+        <button value="3">3</button>
+        <button value="*" class="operator">*</button>
+      </div>
+      <div class="row">
+        <button value="C" class="operator">C</button>
+        <button value="0">0</button>
+        <button value="/" class="operator">/</button>
+        <button value="=" class="operator">=</button>
+      </div>
+    </div>
+
+  </div>
+  
+  
+  <script>
+
+const buttons = document.querySelectorAll('button');
+
+const display = document.querySelector('.display');
+
+
+buttons.forEach(function(button) {
+  button.addEventListener('click', calculate);
+});
+
+
+function calculate(event) {
+ 
+  const clickedButtonValue = event.target.value;
+
+  if (clickedButtonValue === '=') {
+   
+    if (display.value !== '') {
+      
+      display.value = eval(display.value);
+    }
+  } else if (clickedButtonValue === 'C') {
     
-      <table> 
-         <tr> 
-            <td colspan="3"><input type="text" id="result"/></td> 
-            <!-- clr() function will call clr to clear all value -->
-            <td><input type="button" value="C" onclick="clr()"/> </td> 
-         </tr> 
-         <tr> 
-            <!-- create button and assign value to each button -->
-            <!-- dis("1") will call function dis to display value -->
-            <td><input type="button" value="1" onclick="dis('1')"/> </td> 
-            <td><input type="button" value="2" onclick="dis('2')"/> </td> 
-            <td><input type="button" value="3" onclick="dis('3')"/> </td> 
-            <td><input type="button" value="/" onclick="dis('/')"/> </td> 
-         </tr> 
-         <tr> 
-            <td><input type="button" value="4" onclick="dis('4')"/> </td> 
-            <td><input type="button" value="5" onclick="dis('5')"/> </td> 
-            <td><input type="button" value="6" onclick="dis('6')"/> </td> 
-            <td><input type="button" value="-" onclick="dis('-')"/> </td> 
-         </tr> 
-         <tr> 
-            <td><input type="button" value="7" onclick="dis('7')"/> </td> 
-            <td><input type="button" value="8" onclick="dis('8')"/> </td> 
-            <td><input type="button" value="9" onclick="dis('9')"/> </td> 
-            <td><input type="button" value="+" onclick="dis('+')"/> </td> 
-         </tr> 
-         <tr> 
-            <td><input type="button" value="." onclick="dis('.')"/> </td> 
-            <td><input type="button" value="0" onclick="dis('0')"/> </td> 
-            <!-- solve function call function solve to evaluate value -->
-            <td><input type="button" value="=" onclick="solve()"/> </td> 
-            <td><input type="button" value="*" onclick="dis('*')"/> </td> 
-         </tr> 
-      </table> 
-       <script> 
-         //function that display value 
-         function dis(val) 
-         { 
-             document.getElementById("result").value+=val 
-         } 
-           
-         //function that evaluates the digit and return result 
-         function solve() 
-         { 
-             let x = document.getElementById("result").value 
-             let y = eval(x) 
-             document.getElementById("result").value = y 
-         } 
-           
-         //function that clear the display 
-         function clr() 
-         { 
-             document.getElementById("result").value = "" 
-         } 
-      </script> 
-   </body> 
-</html>    
+    display.value = '';
+  } else {
+  
+    display.value += clickedButtonValue;
+  }
+}
+  </script>
+</body>
+</html>
