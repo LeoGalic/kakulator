@@ -128,23 +128,23 @@ const buttons = document.querySelectorAll('button');
 const display = document.querySelector('.display');
 
 
-
+// button event kada se klikne da izračuna
 buttons.forEach(function(button) {
   button.addEventListener('click', calculate);
 });
 
-
+// izračunavajne event
 function calculate(event) {
  
   const clickedButtonValue = event.target.value;
 
-  if (clickedButtonValue === '=') {
+  if (clickedButtonValue === '=') {        //kada se klikne = da se izračuna i rezultat pokaže
    
     if (display.value !== '') {
       
       display.value = eval(display.value);
     }
-  } else if (clickedButtonValue === 'C') {
+  } else if (clickedButtonValue === 'C') {           // kada se kilikne C da se sve izbriše
     
     display.value = '';
   } else {
